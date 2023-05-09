@@ -1,0 +1,50 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %}food_view_in tile view{% endblock %}
+{% block html_attribs %} lang="ja"{% endblock %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cuisine_list.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/mvp1_1.js') }}"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<header>
+    <a class="header-back" href="/">←</a>
+    <div class="header-pagename">料理</div>
+</header>
+<main>
+    <h2>検索結果</h2>
+    <form action="{{ url_for('output') }}" id="select-category" method="POST">
+        <label for="select-category" id="food_select"></label>
+        <input name="lat" value="" type="hidden">
+        <input name="lng" value="" type="hidden">
+        <div class="cuisine">
+            {% for food in foods %}
+            <div class="cuisine-item">
+                <label>
+                    <img src="{{ food.img }}" class="cuisine">
+                    <input type="submit" name="dish" value="{{ food.name_tag }}" class="dish">
+                </label>
+                <div class="cuisine-txt">
+                    <p class="cuisine-detail-JP">{{ food.name_tag }}</p>
+                    <p class="cuisine-detail-EN">{{ food.name_tag_en }}</p>
+                    <p class="cuisine-detail">コンテンツ</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</main>
+<footer>
+	<p><img src="static/img/btn_footer_HELP@2x.png" alt=""></p>
+	<p><img src="static/img/btn_footer_HOME@2x.png" alt=""></p>
+	<p><img src="static/img/btn_footer_ETC@2x.png" alt=""></p>
+</footer>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/post_js_data.js') }}"></script>
+
+{% endblock %}

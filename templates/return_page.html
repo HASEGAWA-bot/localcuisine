@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Custom Markers and time to get</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <script type="text/javascript">
+    var markerData = {{map_data|tojson}};
+  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/gmap.js') }}"></script>
+
+</head>
+
+<body>
+  <div id="map"></div>
+  <article id="under">
+    <p>
+      Result of time to restaurants ↓
+    </p>
+  </article>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoICmY87tSlv1MfFgy87lgjdC9FWhifCI&callback=initMap&v=weekly"
+    defer></script>
+
+</body>
+
+</html>

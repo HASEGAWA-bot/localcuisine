@@ -1,0 +1,71 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %}local cuisine detector{% endblock %}
+{% block html_attribs %} lang="ja"{% endblock %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/home.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+	<!-- ... -->
+</div>
+{% endblock %}
+{% block content %}
+
+
+
+<!--input要素の属性(name)と値(value)がformの送信対象-->
+<main>
+	<form action="{{ url_for('search') }}" id="select-category" method="POST">
+		<img src="/static/img/glass.png" alt="glass" id="glass">
+		<div class="search">
+			<div class="wrapper">
+				{% for m in material.keys() %}
+				<div class="cuisine">
+					<input type="checkbox" class="btn-check" id="btn-{{ material[m] }}" autocomplete="off"
+						name="example" value="{{ m }}">
+					<label for="btn-{{ material[m] }}">
+						<img src="static/img/ingredient/btn_search_el_{{ material[m] }}@2x.png"
+							alt="ingredient picture {{ material[m] }}" class="btn-off" style="display: block;">
+						<img src="static/img/ingredient/btn_search_el_{{ material[m] }}_PUSH@2x.png"
+							alt="ingredient picture {{ material[m] }}" class="btn-on" style="display: none;">
+					</label>
+				</div>
+				{% endfor %}
+			</div>
+			<button class="btn btn-primary search-btn" type="submit" value="検索" name="categorydata">Search for
+				dishes</button>
+		</div>
+	</form>
+</main>
+<footer>
+	<p><img src="static/img/btn_footer_HELP@2x.png" alt=""></p>
+	<p><img src="static/img/btn_footer_HOME@2x.png" alt=""></p>
+	<p><img src="static/img/btn_footer_ETC@2x.png" alt=""></p>
+</footer>
+
+<script>
+	let btn_off = document.querySelectorAll(".btn-off")
+	let btn_on = document.querySelectorAll(".btn-on")
+
+	for (let i = 0; i < 12; i++) {
+		btn_off[i].addEventListener("click", () => {
+			btn_off[i].style.display = "none";
+			// btn_off[i].classList.remove("visible");
+			btn_on[i].style.display = "block";
+			// btn_on[i].classList.add("visible");
+		})
+		btn_on[i].addEventListener("click", () => {
+			btn_on[i].style.display = "none";
+			// btn_on[i].classList.remove("visible");
+			btn_off[i].style.display = "block";
+			// btn_off[i].classList.add("visible");
+		})
+	}
+</script>
+
+{% endblock %}
